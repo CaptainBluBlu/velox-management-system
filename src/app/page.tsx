@@ -14,14 +14,6 @@ export default function Page() {
 						link: '/about',
 						label: 'Home',
 					},
-					{
-						link: '/learn',
-						label: 'Features',
-					},
-					{
-						link: '/pricing',
-						label: 'Pricing',
-					},
 				]}
 			/>
 			<HeroSection />

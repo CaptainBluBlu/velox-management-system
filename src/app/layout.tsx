@@ -2,27 +2,15 @@
 import { AppProvider } from './provider';
 
 export const metadata = {
-	metadataBase: new URL('https://mantine-admin.vercel.app/'),
-	title: { default: 'Mantine Admin', template: '%s | Mantine Admin' },
-	description: 'A Modern Dashboard with Next.js.',
-	keywords: [
-		'Next.js',
-		'Mantine',
-		'Admin',
-		'Template',
-		'Admin Template',
-		'Admin Dashboard',
-		'Admin Panel',
-		'Admin UI',
-	],
+	metadataBase: new URL('https://velox-managment-system.vercel.app/'),
+	title: { default: 'Velox Admin', template: '%s | Mantine Admin' },
+	description: 'Velox Mangement Software. Licensed under MIT',
 	authors: [
 		{
-			name: 'jotyy',
-			url: 'https://jotyy.vercel.app',
+			name: 'Glenn',
 		},
 	],
-	creator: 'jotyy',
-	manifest: 'https://mantine-admin.vercel.app/site.webmanifest',
+	creator: 'CaptainBluBlu',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -40,6 +40,21 @@ export const navLinks: NavItem[] = [
 		],
 	},
 	{
+		label: 'Users',
+		icon: IconLock,
+		initiallyOpened: true,
+		links: [
+			{
+				label: 'Create New User',
+				link: '/create-user',
+			},
+			{
+				label: 'View User',
+				link: '/view-user',
+			},
+		],
+	},
+	{
 		label: 'Sample',
 		icon: IconMoodSmile,
 		initiallyOpened: true,
