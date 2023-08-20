@@ -5,7 +5,7 @@ export default function Page() {
 	return (
 		<>
         <h1>404 Page Not Found</h1>
-        <Link href="/">Go Home</Link>
+        <Link href="/dashboard">Go Home</Link>
         </>
 	);
 }

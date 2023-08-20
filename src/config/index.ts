@@ -4,6 +4,7 @@ import {
 	IconDashboard,
 	IconLock,
 	IconMoodSmile,
+	IconUser,
 } from '@tabler/icons-react';
 
 export const navLinks: NavItem[] = [
@@ -25,6 +26,18 @@ export const navLinks: NavItem[] = [
 		],
 	},
 	{
+		label: 'Users',
+		// user icon
+		icon: IconUser,
+		initiallyOpened: true,
+		links: [
+			{
+				label: 'View Users',
+				link: '/dashboard/users',
+			},
+		],
+	},
+	{
 		label: 'Auth',
 		icon: IconLock,
 		initiallyOpened: true,
@@ -36,21 +49,6 @@ export const navLinks: NavItem[] = [
 			{
 				label: 'Register',
 				link: '/register',
-			},
-		],
-	},
-	{
-		label: 'Users',
-		icon: IconLock,
-		initiallyOpened: true,
-		links: [
-			{
-				label: 'Create New User',
-				link: '/create-user',
-			},
-			{
-				label: 'View User',
-				link: '/view-user',
 			},
 		],
 	},
