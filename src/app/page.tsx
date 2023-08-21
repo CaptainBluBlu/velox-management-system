@@ -1,36 +1,73 @@
-import { Footer } from '@/components/Footer/Footer';
-import { EmailSection } from '@/components/Landing/EmailSection';
-import { FeaturesSection } from '@/components/Landing/FeaturesSection';
-import { Header } from '@/components/Landing/Header';
-import { HeroSection } from '@/components/Landing/HeroSection';
-import { LandingContainer } from '@/components/Landing/LandingContainer';
+"use client";
 
-export default function Page() {
-	return (
-		<LandingContainer>
-			<Header
-				links={[
-					{
-						link: '/about',
-						label: 'Home',
-					},
-					{
-						link: '/learn',
-						label: 'Features',
-					},
-					{
-						link: '/pricing',
-						label: 'Pricing',
-					},
-				]}
-			/>
-			<HeroSection />
-			<FeaturesSection
-				title="Features"
-				description="This project is an experiment to see how a modern admin application, with features like auth, API routes, and static pages would work in Next.js 13 app dir."
-			/>
-			<EmailSection />
-			<Footer />
-		</LandingContainer>
-	);
+import React, { useState } from "react";
+import { Container, Paper, TextInput, Button, Loader } from "@mantine/core";
+import { useRouter } from "next/navigation";
+
+function LoginForm() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const router = useRouter();
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSignIn = () => {
+    // You can implement your sign-in logic here
+    console.log("Username:", username);
+    console.log("Password:", password);
+
+    // Set loading state to true
+    setIsLoading(true);
+
+    // Simulate a delay for demonstration purposes (remove in actual code)
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 2000); // Replace with your actual sign-in logic
+
+    // In actual code, you would handle the sign-in logic here
+  };
+
+  return (
+    <Container
+      size="sm"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <Paper p="lg" shadow="xs" style={{ maxWidth: 400, width: "100%" }}>
+        <TextInput
+          label="Username"
+          value={username}
+          onChange={handleUsernameChange}
+          style={{ marginBottom: 16 }}
+        />
+        <TextInput
+          label="Password"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          style={{ marginBottom: 24 }}
+        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Button fullWidth onClick={handleSignIn}>
+            Sign In
+          </Button>
+        )}
+      </Paper>
+    </Container>
+  );
 }
+
+export default LoginForm;

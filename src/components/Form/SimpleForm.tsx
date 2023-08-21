@@ -31,7 +31,7 @@ export const SimpleForm = () => {
 		});
 
 	return (
-		<Paper withBorder shadow="md" p="md" w="400px">
+		<Paper withBorder shadow="md" p="md" w="100%">
 			<Box<'form'>>
 				<Text<'h2'> component="h2" fw="bold" fz="lg">
 					Register

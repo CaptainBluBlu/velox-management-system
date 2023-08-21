@@ -11,7 +11,6 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch, IconSettings } from '@tabler/icons-react';
-import { DirectionSwitcher } from '../DirectionSwitcher/DirectionSwitcher';
 import { Logo } from '../Logo/Logo';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 
@@ -63,7 +62,6 @@ export function AdminHeader({ burger }: Props) {
 			>
 				<Stack spacing="lg">
 					<ThemeSwitcher />
-					<DirectionSwitcher />
 				</Stack>
 			</Drawer>
 		</Header>

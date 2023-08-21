@@ -15,7 +15,7 @@ export const Logo: React.FC<Props> = () => {
 					fw="bolder"
 					size="xl"
 				>
-					Mantine
+					Velox
 					<Text component="span" fw="normal" c="gray">
 						Admin
 					</Text>

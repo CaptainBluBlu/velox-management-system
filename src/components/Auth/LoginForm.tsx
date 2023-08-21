@@ -17,7 +17,7 @@ export function LoginForm() {
 
 	return (
 		<Card withBorder shadow="md" p={30} mt={30} radius="md">
-			<TextInput label="Email" placeholder="test@example.com" required />
+			<TextInput label="Username" placeholder="Your Username" required />
 			<PasswordInput label="Password" placeholder="Your password" required mt="md" />
 			<Group position="apart" mt="md">
 				<Checkbox label="Remember me" />

@@ -4,6 +4,7 @@ import {
 	IconDashboard,
 	IconLock,
 	IconMoodSmile,
+	IconUser,
 } from '@tabler/icons-react';
 
 export const navLinks: NavItem[] = [
@@ -21,6 +22,18 @@ export const navLinks: NavItem[] = [
 			{
 				label: 'Form',
 				link: '/dashboard/form',
+			},
+		],
+	},
+	{
+		label: 'Users',
+		// user icon
+		icon: IconUser,
+		initiallyOpened: true,
+		links: [
+			{
+				label: 'View Users',
+				link: '/dashboard/users',
 			},
 		],
 	},

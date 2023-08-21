@@ -1,0 +1,246 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  name      String?
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+enum PremiseType {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+  GOVERNMENT
+  OTHERS
+  CORPORATE
+}
+
+model Customer {
+  id                  String      @id @default(uuid())
+  companyName         String
+  email               String
+  phone               String
+  fax                 String
+  premiseType         PremiseType
+  personInCharge      String
+  personInChargePhone String
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  deletedAt           DateTime?
+  accounts            Account[]   @relation("CustomerToAccount")
+}
+
+model Account {
+  id             String   @id
+  accountName    String
+  companyAddress String
+  agreementDate  DateTime
+  lnkingDate     DateTime
+
+  // SimCard
+  hasP2P    Boolean
+  simCardId String?  @unique
+  simCard   SimCard? @relation("NormalSimRelation", fields: [simCardId], references: [id])
+  p2pCardId String?  @unique
+  p2pCard   SimCard? @relation("P2PSimRelation", fields: [p2pCardId], references: [id])
+
+  accountNumber String
+  customerId    String
+  customer      Customer   @relation("CustomerToAccount", fields: [customerId], references: [id])
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  deletedAt     DateTime?
+  Contract      Contract[]
+
+  keyholders KeyholderDescription[]
+  zones      ZoneDescription[]
+
+  @@index([customerId])
+  @@index([simCardId])
+  @@index([p2pCardId])
+}
+
+model Contract {
+  id              String   @id @default(uuid())
+  contractType    String
+  contractDate    DateTime
+  renewalPrice    Float
+  nextRenewalDate DateTime
+  prevRenewalDate DateTime
+
+  // Account
+  accountId String
+  account   Account @relation(fields: [accountId], references: [id])
+
+  // Dealer
+  dealerId String
+  dealer   Dealer @relation(fields: [dealerId], references: [id])
+
+  // Has Multiple Renewals
+  renewals Renewal[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([accountId])
+  @@index([dealerId])
+}
+
+model Dealer {
+  id          String     @id @default(uuid())
+  dealerName  String
+  dealerPhone String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  deletedAt   DateTime?
+  contracts   Contract[]
+}
+
+model Renewal {
+  id             String    @id @default(uuid())
+  renewalDate    DateTime
+  renewalPrice   Float
+  renewalComment String?
+  contractId     String
+  contract       Contract  @relation(fields: [contractId], references: [id])
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  // Invoice 
+  invoiceId String?  @unique
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
+
+  @@index([contractId])
+  @@index([invoiceId])
+}
+
+enum InvoiceType {
+  RENEWAL
+  JOBSHEET
+  COMBINED
+}
+
+enum InvoiceStatus {
+  ISSUED
+  PENDING
+  PAID
+  CANCELLED
+  VOID
+}
+
+model Invoice {
+  id             String      @id @default(uuid())
+  invoiceDate    DateTime
+  invoicePrice   Float
+  invoiceComment String?
+  invoiceStatus  String
+  invoiceReceipt String?
+  invoiceType    InvoiceType
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  deletedAt      DateTime?
+
+  // Renewal
+  isRenewal Boolean  @default(false)
+  renewal   Renewal?
+
+  // JobSheet
+  isJobSheet Boolean   @default(false)
+  jobSheet   JobSheet?
+
+  @@index([isRenewal])
+  @@index([isJobSheet])
+}
+
+model InvoiceItems {
+  id       String @id @default(uuid())
+  itemName String
+}
+
+enum JobSheetStatus {
+  PENDING
+  COMPLETE
+  PENDING_INVOICE
+  PENDING_PAYMENT
+  CANCELLED
+}
+
+model JobSheet {
+  id              String         @id @default(uuid())
+  jobSheetDate    DateTime
+  jobSheetPrice   Float
+  jobSheetComment String?
+  jobSheetStatus  JobSheetStatus
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  deletedAt       DateTime?
+
+  // Invoice
+  invoiceId String?  @unique
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
+}
+
+enum SimCardType {
+  MAXIS
+  CELCOM
+  DIGI
+}
+
+model SimCard {
+  id               String   @id @default(uuid())
+  serialNumber     String
+  number           String
+  hasActiveAccount Boolean
+  simCardType      String
+  isP2P            Boolean  @default(false)
+  p2pAccount       Account? @relation("P2PSimRelation")
+  normalAccount    Account? @relation("NormalSimRelation")
+}
+
+model KeyholderDescription {
+  id                String    @id @default(uuid())
+  keyholderName     String
+  keyholderPosition Int
+  keyholderPhone    String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  deletedAt         DateTime?
+
+  // connect to Account
+  accountId String
+  account   Account @relation(fields: [accountId], references: [id])
+
+  @@index([accountId])
+}
+
+model ZoneDescription {
+  id              String    @id @default(uuid())
+  zoneNumber      Int
+  zoneDescription String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  // connect to Account
+  accountId String
+  account   Account @relation(fields: [accountId], references: [id])
+
+  @@index([accountId])
+}
