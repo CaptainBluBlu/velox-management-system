@@ -3,18 +3,6 @@
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD041 -->
 
-<h1 align="center">
-  Mantine Admin
-</h1>
-
-<!-- Banner Section -->
-<p align="center">
-  <img src="https://mantine-admin.vercel.app/opengraph-image?66661d3833f68a95" alt="Mantine Admin Banner" width="512px" />
-</p>
-<h3 align="center">
-  💻 A Modern Dashboard with Next.js.!
-</h3>
-
 ---
 
 <!-- Badges Section -->
