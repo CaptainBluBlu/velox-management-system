@@ -3,7 +3,6 @@ import {
 	IconComponents,
 	IconDashboard,
 	IconLock,
-	IconMoodSmile,
 	IconUser,
 } from '@tabler/icons-react';
 
@@ -49,17 +48,6 @@ export const navLinks: NavItem[] = [
 			{
 				label: 'Register',
 				link: '/register',
-			},
-		],
-	},
-	{
-		label: 'Sample',
-		icon: IconMoodSmile,
-		initiallyOpened: true,
-		links: [
-			{
-				label: 'Landing',
-				link: '/',
 			},
 		],
 	},
