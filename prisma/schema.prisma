@@ -51,6 +51,7 @@ model Account {
   companyAddress String
   agreementDate  DateTime
   lnkingDate     DateTime
+  hasFile        Boolean  @default(false)
 
   // SimCard
   hasP2P    Boolean
