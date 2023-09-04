@@ -23,20 +23,17 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface UserButtonProps extends UnstyledButtonProps {
-	image: string;
 	name: string;
 	email: string;
 	icon?: React.ReactNode;
 }
 
-export function UserButton({ image, name, email, icon, ...others }: UserButtonProps) {
+export function UserButton({ name, email, icon, ...others }: UserButtonProps) {
 	const { classes } = useStyles();
 
 	return (
 		<UnstyledButton className={classes.user} {...others}>
 			<Group>
-				<Avatar src={image} radius="xl" />
-
 				<div style={{ flex: 1 }}>
 					<Text size="sm" weight={500}>
 						{name}

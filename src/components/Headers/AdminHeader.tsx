@@ -39,16 +39,6 @@ export function AdminHeader({ burger }: Props) {
 			{burger && burger}
 			<Logo />
 			<Box sx={{ flex: 1 }} />
-			<TextInput
-				placeholder="Search"
-				variant="filled"
-				icon={<IconSearch size="0.8rem" />}
-				sx={theme => ({
-					[theme.fn.smallerThan('md')]: {
-						display: 'none',
-					},
-				})}
-			/>
 			<ActionIcon onClick={open}>
 				<IconSettings size="1.25rem" />
 			</ActionIcon>

@@ -11,6 +11,7 @@ import {
 	Card,
 } from '@mantine/core';
 import { useRouter } from 'next/navigation';
+import { LoginButton } from '../UserButton/AuthButton';
 
 export function LoginForm() {
 	const router = useRouter();
@@ -28,6 +29,8 @@ export function LoginForm() {
 			<Button fullWidth mt="xl" onClick={() => router.push('/dashboard')}>
 				Sign In
 			</Button>
+			<p>Login Button</p>
+			<LoginButton />
 		</Card>
 	);
 }

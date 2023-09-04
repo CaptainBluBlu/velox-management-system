@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Container, Paper, TextInput, Button, Loader } from "@mantine/core";
 import { useRouter } from "next/navigation";
+import { LoginButton, LogoutButton } from "@/components/UserButton/AuthButton";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
@@ -65,6 +66,10 @@ function LoginForm() {
             Sign In
           </Button>
         )}
+
+        <p>Login Button</p>
+        <LoginButton />
+        <LogoutButton />
       </Paper>
     </Container>
   );

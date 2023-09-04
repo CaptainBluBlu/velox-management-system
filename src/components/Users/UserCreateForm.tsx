@@ -1,17 +1,21 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Group, Button, TextInput, Text } from '@mantine/core';
+import { Prisma } from '@prisma/client';
 
-const addUser = async (username, password) => {
+const addUser = async (createUserData: Prisma.UserCreateInput) => {
 	try {
-		const response = await fetch('/api/users/create-user', {
+		const response = await fetch('/api/users', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ username, password }),
+			body: JSON.stringify(createUserData),
 		});
 
 		const data = await response.json();
+
 		console.log(data);
 	} catch (error) {
 		console.error(error);
@@ -21,21 +25,28 @@ const addUser = async (username, password) => {
 const UserCreateForm = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [name, setName] = useState('');
 	const [isFormValid, setIsFormValid] = useState(true); // Add state for form validation
 
 	const handleUsernameChange = event => {
 		setUsername(event.target.value);
-		validateForm(event.target.value, password);
+		validateForm(name, event.target.value, password);
 	};
 
 	const handlePasswordChange = event => {
 		setPassword(event.target.value);
-		validateForm(username, event.target.value);
+		validateForm(name, username, event.target.value);
 	};
 
-	const validateForm = (newUsername, newPassword) => {
+	const handleNameChange = event => {
+		setName(event.target.value);
+		validateForm(event.target.value, username, password);
+	};
+
+	const validateForm = (newName, newUsername, newPassword) => {
 		// Basic form validation
-		const isValid = newUsername.trim() !== '' && newPassword.trim() !== '';
+		const isValid =
+			newUsername.trim() !== '' && newPassword.trim() !== '' && newName.trim() !== '';
 		setIsFormValid(isValid);
 	};
 
@@ -44,14 +55,22 @@ const UserCreateForm = () => {
 		console.log('Username:', username);
 		console.log('Password:', password);
 
+		const data: Prisma.UserCreateInput = { username, password, name };
 		// Call the function with username and password
-		addUser(username, password);
+		const result = addUser(data);
 
 		// Close the modal after submission
 		close();
 	};
 	return (
 		<div>
+			<TextInput
+				label="Username"
+				value={name}
+				onChange={handleNameChange}
+				error={!isFormValid} // Show error if form is not valid
+				style={{ marginBottom: 16 }}
+			/>
 			<TextInput
 				label="Username"
 				value={username}
