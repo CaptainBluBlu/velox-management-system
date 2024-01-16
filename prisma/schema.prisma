@@ -46,7 +46,7 @@ model Customer {
 }
 
 model Account {
-  id             String   @id
+  id             String   @id @default(uuid())
   accountName    String
   companyAddress String
   agreementDate  DateTime
@@ -54,7 +54,8 @@ model Account {
   hasFile        Boolean  @default(false)
 
   // SimCard
-  hasP2P    Boolean
+  hasP2P Boolean
+
   simCardId String?  @unique
   simCard   SimCard? @relation("NormalSimRelation", fields: [simCardId], references: [id])
   p2pCardId String?  @unique
@@ -147,15 +148,15 @@ enum InvoiceStatus {
 }
 
 model Invoice {
-  id             String      @id @default(uuid())
+  id             String        @id @default(uuid())
   invoiceDate    DateTime
   invoicePrice   Float
   invoiceComment String?
-  invoiceStatus  String
+  invoiceStatus  InvoiceStatus
   invoiceReceipt String?
   invoiceType    InvoiceType
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
   deletedAt      DateTime?
 
   // Renewal
@@ -205,14 +206,14 @@ enum SimCardType {
 }
 
 model SimCard {
-  id               String   @id @default(uuid())
+  id               String      @id @default(uuid())
   serialNumber     String
   number           String
   hasActiveAccount Boolean
-  simCardType      String
-  isP2P            Boolean  @default(false)
-  p2pAccount       Account? @relation("P2PSimRelation")
-  normalAccount    Account? @relation("NormalSimRelation")
+  simCardType      SimCardType
+  isP2P            Boolean     @default(false)
+  p2pAccount       Account?    @relation("P2PSimRelation")
+  normalAccount    Account?    @relation("NormalSimRelation")
 }
 
 model KeyholderDescription {
